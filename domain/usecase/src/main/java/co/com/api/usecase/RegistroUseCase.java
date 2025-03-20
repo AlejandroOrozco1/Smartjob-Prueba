@@ -36,12 +36,12 @@ public class RegistroUseCase {
         usuario.setPassword(jwtGateway.encritarPassword(usuario.getPassword()));
         Usuario usuarioResult = this.usuarioRepository.save(usuario);
 
-        telefonoRepository.saveAll(usuario.getPhones().stream()
+        telefonoRepository.saveAll(usuario.getTelefonos().stream()
                 .map(phoneRequest -> Telefono.builder()
                         .contrycode(phoneRequest.getContrycode())
                         .number(phoneRequest.getNumber())
                         .citycode(phoneRequest.getCitycode())
-                        .userId(usuarioResult.getUserId())
+                        .userId(usuarioResult.getUsuarioId())
                         .build())
                 .toList());
 
@@ -63,7 +63,7 @@ public class RegistroUseCase {
     }
 
     public Usuario updateUser(Usuario usuario) {
-        boolean existingUser = this.usuarioRepository.existById(String.valueOf(usuario.getUserId()));
+        boolean existingUser = this.usuarioRepository.existById(String.valueOf(usuario.getUsuarioId()));
         return this.usuarioRepository.update(usuario);
     }
 }

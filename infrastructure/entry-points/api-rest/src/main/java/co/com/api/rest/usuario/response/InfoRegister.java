@@ -1,4 +1,4 @@
-package co.com.api.rest.user.response;
+package co.com.api.rest.usuario.response;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package co.com.api.jpa.user;
 
-import co.com.api.jpa.user.entities.UserEntity;
+import co.com.api.jpa.user.entities.UsuarioEntity;
 import co.com.api.model.usuario.Usuario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ class UsuarioRepositoryAdapterTest {
 
 
     @Mock
-    private UserDataRepository repository;
+    private UsuarioDataRepository repository;
 
     @Mock
     private ObjectMapper objectMapper;
@@ -31,7 +31,7 @@ class UsuarioRepositoryAdapterTest {
 
     private Usuario usuario;
 
-    private UserEntity userEntity;
+    private UsuarioEntity usuarioEntity;
 
     @BeforeEach
     void setUp() {
@@ -52,11 +52,11 @@ class UsuarioRepositoryAdapterTest {
                 .isactive(true)
                 .build();
 
-       userEntity = UserEntity.builder()
+       usuarioEntity = UsuarioEntity.builder()
                .email("xxx@xxx.com")
-               .name("")
-               .userId("")
-               .phones(new ArrayList<>())
+               .nombre("")
+               .usuarioId("")
+               .telefonos(new ArrayList<>())
                .lastLogin(LocalDateTime.now())
                .created(LocalDateTime.now())
                .modified(LocalDateTime.now())
@@ -67,8 +67,8 @@ class UsuarioRepositoryAdapterTest {
     @Test
     void testSave() {
 
-        when(repository.save(Mockito.any())).thenReturn(userEntity);
-        when(objectMapper.map(userEntity, Usuario.class)).thenReturn(usuario);
+        when(repository.save(Mockito.any())).thenReturn(usuarioEntity);
+        when(objectMapper.map(usuarioEntity, Usuario.class)).thenReturn(usuario);
 
         Usuario result = adapter.save(usuario);
 
@@ -77,8 +77,8 @@ class UsuarioRepositoryAdapterTest {
 
     @Test
     void testFindById() {
-        when(repository.findById("id")).thenReturn(Optional.of(userEntity));
-        when(objectMapper.map(userEntity, Usuario.class)).thenReturn(usuario);
+        when(repository.findById("id")).thenReturn(Optional.of(usuarioEntity));
+        when(objectMapper.map(usuarioEntity, Usuario.class)).thenReturn(usuario);
 
         Usuario result = adapter.findById("id");
 

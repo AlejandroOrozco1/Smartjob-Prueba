@@ -1,7 +1,7 @@
-package co.com.api.jpa.phone;
+package co.com.api.jpa.telefono;
 
 import co.com.api.jpa.helper.AdapterOperations;
-import co.com.api.jpa.phone.entities.PhoneEntity;
+import co.com.api.jpa.telefono.entities.TelefonoEntity;
 import co.com.api.model.telefono.Telefono;
 import co.com.api.model.telefono.gateways.TelefonoRepository;
 import org.reactivecommons.utils.ObjectMapper;
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class PhoneRepositoryAdapter extends AdapterOperations<Telefono, PhoneEntity, String, PhoneDataRepository>
+public class TelefonoRepositoryAdapter extends AdapterOperations<Telefono, TelefonoEntity, String, TelefonoDataRepository>
  implements TelefonoRepository
 {
 
-    public PhoneRepositoryAdapter(PhoneDataRepository repository, ObjectMapper mapper) {
+    public TelefonoRepositoryAdapter(TelefonoDataRepository repository, ObjectMapper mapper) {
         super(repository, mapper, d -> mapper.map(d, Telefono.class));
     }
 

@@ -1,4 +1,4 @@
-package co.com.api.rest.user.requests;
+package co.com.api.rest.usuario.requests;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 public record RegisterRequest (
         @NotBlank(message = "El nombre no puede estar vacío")
-        String name,
+        String nombre,
 
         @Email
         @NotBlank(message = "El email no puede estar vacío")
@@ -22,5 +22,5 @@ public record RegisterRequest (
         String password,
 
         @NotEmpty(message = "El teléfono no puede estar vacío")
-        List<PhoneResquet> phones
+        List<TelefonoResquet> telefonos
 ) {}

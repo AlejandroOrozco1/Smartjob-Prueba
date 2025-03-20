@@ -1,4 +1,4 @@
-package co.com.api.rest.user.requests;
+package co.com.api.rest.usuario.requests;
 
 import co.com.api.model.telefono.Telefono;
 import jakarta.validation.constraints.Email;
@@ -8,9 +8,9 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class UpdateUserRequest {
+public class UpdateUsuarioRequest {
     @NotEmpty(message = "El nombre no puede estar vacio")
-    private String name;
+    private String nombre;
     @Email
     @NotEmpty(message = "El email no puede estar vacio")
     private String email;

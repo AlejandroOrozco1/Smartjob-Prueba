@@ -1,6 +1,6 @@
-package co.com.api.jpa.phone;
+package co.com.api.jpa.telefono;
 
-import co.com.api.jpa.phone.entities.PhoneEntity;
+import co.com.api.jpa.telefono.entities.TelefonoEntity;
 import co.com.api.model.telefono.Telefono;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,17 +20,17 @@ class TelefonoRepositoryAdapterTest {
 
 
     @Mock
-    private PhoneDataRepository repository;
+    private TelefonoDataRepository repository;
 
     @Mock
     private ObjectMapper objectMapper;
 
     @InjectMocks
-    private PhoneRepositoryAdapter adapter;
+    private TelefonoRepositoryAdapter adapter;
 
     private Telefono telefono;
 
-    private PhoneEntity phoneEntity;
+    private TelefonoEntity telefonoEntity;
 
     @BeforeEach
     void setUp() {
@@ -38,7 +38,7 @@ class TelefonoRepositoryAdapterTest {
 
         when(objectMapper.map("value", Object.class)).thenReturn("value");
 
-        adapter = new PhoneRepositoryAdapter(repository, objectMapper);
+        adapter = new TelefonoRepositoryAdapter(repository, objectMapper);
 
         telefono = Telefono.builder()
                 .userId("1")
@@ -48,20 +48,20 @@ class TelefonoRepositoryAdapterTest {
                 .citycode("7")
                 .build();
 
-       phoneEntity = PhoneEntity.builder()
-               .userId("1")
-               .phoneId("1")
-               .number("9")
-               .citycode("8")
-               .citycode("7")
+       telefonoEntity = TelefonoEntity.builder()
+               .usuarioId("1")
+               .telefonoId("1")
+               .numero("9")
+               .codigoCiudad("8")
+               .codigoCiudad("7")
                .build();
     }
 
     @Test
     void testSave() {
 
-        when(repository.save(Mockito.any())).thenReturn(phoneEntity);
-        when(objectMapper.map(phoneEntity, Telefono.class)).thenReturn(telefono);
+        when(repository.save(Mockito.any())).thenReturn(telefonoEntity);
+        when(objectMapper.map(telefonoEntity, Telefono.class)).thenReturn(telefono);
 
         Telefono result = adapter.save(telefono);
 
@@ -71,8 +71,8 @@ class TelefonoRepositoryAdapterTest {
     @Test
     void testSaveAll() {
 
-        when(repository.save(Mockito.any())).thenReturn(phoneEntity);
-        when(objectMapper.map(phoneEntity, Telefono.class)).thenReturn(telefono);
+        when(repository.save(Mockito.any())).thenReturn(telefonoEntity);
+        when(objectMapper.map(telefonoEntity, Telefono.class)).thenReturn(telefono);
 
         List<Telefono> result = adapter.saveAll(List.of(telefono));
 
@@ -81,8 +81,8 @@ class TelefonoRepositoryAdapterTest {
 
     @Test
     void testFindById() {
-        when(repository.findById("id")).thenReturn(Optional.of(phoneEntity));
-        when(objectMapper.map(phoneEntity, Telefono.class)).thenReturn(telefono);
+        when(repository.findById("id")).thenReturn(Optional.of(telefonoEntity));
+        when(objectMapper.map(telefonoEntity, Telefono.class)).thenReturn(telefono);
 
         Telefono result = adapter.findById("id");
 

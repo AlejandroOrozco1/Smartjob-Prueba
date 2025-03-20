@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @OpenAPIDefinition(
         info = @Info(
-                title = "API DE REGISTROS",
+                title = "API DE REGISTROS DE USUARIOS",
                 version = "1.0.0",
-                description = "API diseñada para registrar usuarios."
+                description = "API creada para registrar usuarios."
         )
 )
 @SecurityScheme(

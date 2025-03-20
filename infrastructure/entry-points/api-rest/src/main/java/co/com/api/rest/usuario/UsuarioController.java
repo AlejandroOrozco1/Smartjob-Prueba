@@ -1,7 +1,7 @@
-package co.com.api.rest.user;
+package co.com.api.rest.usuario;
 
-import co.com.api.rest.user.response.InfoRegister;
-import co.com.api.rest.user.requests.RegisterRequest;
+import co.com.api.rest.usuario.response.InfoRegister;
+import co.com.api.rest.usuario.requests.RegisterRequest;
 import co.com.api.helper.util.PasswordValidatorUtil;
 import co.com.api.model.common.exception.ErrorException;
 import co.com.api.model.telefono.Telefono;
@@ -16,9 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/api/user", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/usuario", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
-public class UserController {
+public class UsuarioController {
 
     private final RegistroUseCase registroUseCase;
     private final PasswordValidatorUtil passwordValidatorUtil;
@@ -37,14 +37,14 @@ public class UserController {
         }
 
         Usuario usuario = Usuario.builder()
-                .name(request.name())
+                .nombre(request.nombre())
                 .password(request.password())
                 .email(request.email())
-                .phones(request.phones().stream()
+                .telefonos(request.telefonos().stream()
                         .map(phoneRequest -> Telefono.builder()
-                                .contrycode(phoneRequest.getContrycode())
-                                .number(phoneRequest.getNumber())
-                                .citycode(phoneRequest.getCitycode())
+                                .contrycode(phoneRequest.getCoidgoPais())
+                                .number(phoneRequest.getNumero())
+                                .citycode(phoneRequest.getCodigoCiudad())
                                 .build())
                         .toList())
                 .build();
@@ -52,7 +52,7 @@ public class UserController {
 
         Usuario savedUsuario = registroUseCase.save(usuario);
         return ResponseEntity.ok(InfoRegister.builder()
-                        .id(savedUsuario.getUserId())
+                        .id(savedUsuario.getUsuarioId())
                         .created(savedUsuario.getCreated())
                         .modified(savedUsuario.getModified())
                         .last_login(savedUsuario.getLastLogin())

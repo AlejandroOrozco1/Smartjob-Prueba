@@ -1,7 +1,7 @@
-package co.com.api.rest.user;
+package co.com.api.rest.usuario;
 
 import co.com.api.helper.util.PasswordValidatorUtil;
-import co.com.api.rest.user.requests.RegisterRequest;
+import co.com.api.rest.usuario.requests.RegisterRequest;
 import co.com.api.model.common.exception.ErrorException;
 import co.com.api.model.usuario.Usuario;
 import co.com.api.usecase.RegistroUseCase;
@@ -30,7 +30,7 @@ class UsuarioControllerTest {
     private PasswordValidatorUtil passwordValidatorUtil;
 
     @InjectMocks
-    private UserController userController;
+    private UsuarioController usuarioController;
 
     @BeforeEach
     void init() {
@@ -41,13 +41,13 @@ class UsuarioControllerTest {
     void getUserExitoso() throws ErrorException {
         when(registroUseCase.findById(Mockito.anyString())).thenReturn(
                 Usuario.builder()
-                        .userId("1")
+                        .usuarioId("1")
                         .build());
 
-        var result = userController.getUser("1");
+        var result = usuarioController.getUser("1");
 
         assertThat(result).isNotNull();
-        Assertions.assertEquals("1", Objects.requireNonNull(result.getUserId()));
+        Assertions.assertEquals("1", Objects.requireNonNull(result.getUsuarioId()));
     }
 
     @Test
@@ -56,7 +56,7 @@ class UsuarioControllerTest {
         when(passwordValidatorUtil.isValid(anyString())).thenReturn(true);
         when(registroUseCase.save(Mockito.any())).thenReturn(
                 Usuario.builder()
-                        .userId("1")
+                        .usuarioId("1")
                         .created(LocalDateTime.now())
                         .modified(LocalDateTime.now())
                         .lastLogin(LocalDateTime.now())
@@ -67,11 +67,11 @@ class UsuarioControllerTest {
         RegisterRequest request = RegisterRequest.builder()
                 .email("email")
                 .password("password")
-                .name("nombre")
-                .phones(new ArrayList<>())
+                .nombre("nombre")
+                .telefonos(new ArrayList<>())
                 .build();
 
-        var result = userController.registerUser(request);
+        var result = usuarioController.registerUser(request);
 
         assertThat(result).isNotNull();
         Assertions.assertEquals("1", Objects.requireNonNull(result.getBody()).getId());
@@ -82,7 +82,7 @@ class UsuarioControllerTest {
         when(registroUseCase.findById(Mockito.anyString())).thenThrow(new NullPointerException());
 
         Assertions.assertThrows(NullPointerException.class, () ->
-                userController.getUser("1"));
+                usuarioController.getUser("1"));
     }
 
     @Test
@@ -92,11 +92,11 @@ class UsuarioControllerTest {
         when(registroUseCase.save(Mockito.any())).thenThrow(new ErrorException("",400));
 
         Assertions.assertThrows(ErrorException.class, () ->
-                userController.registerUser(RegisterRequest.builder()
-                        .email("xxx@xxx.com")
-                                .name("String")
-                                .password("Strin")
-                                .phones(new ArrayList<>())
+                usuarioController.registerUser(RegisterRequest.builder()
+                        .email("user@email.com")
+                                .nombre("String")
+                                .password("String")
+                                .telefonos(new ArrayList<>())
                         .build()));
     }
 
