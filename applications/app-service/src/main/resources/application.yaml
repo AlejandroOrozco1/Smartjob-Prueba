@@ -1,0 +1,51 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: "registro-ms"
+  devtools:
+    add-properties: false
+  h2:
+    console:
+      enabled: true
+      path: "/h2"
+  profiles:
+    include: null
+  datasource:
+    url: "jdbc:h2:mem:test"
+    username: "sa"
+    password: "pass"
+    driverClassName: "org.h2.Driver"
+  jpa:
+    databasePlatform: "org.hibernate.dialect.H2Dialect"
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  sql:
+    init:
+      mode: never
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  server:
+    port: 8082
+
+cors:
+  allowed-origins: "*"
+
+springdoc:
+  use-management-port: true
+
+jwt:
+  secret: "secretsecretsecretsecretsecretsecretsecretsecret"
+  expiration: 24
+
+config:
+  password-regex: "^(?!.*\\s)(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–\\[{}\\]:;',?/*~$^+=<>]).{8,20}$"
